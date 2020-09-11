@@ -7,13 +7,13 @@ public class controller {
 
 	// Static reference used as global variables
 	static ArrayList<Task> toDoList = new ArrayList<Task>();
-	static boolean CONTINUE = true;
-	static int totalTime = 0; // in s
+	// static boolean CONTINUE = true;
+	static int totalTime = 0; // Unit -> seconds, use timeDelta to convert to
+								// hh:mm:ss format
 
 	public static void main(String[] args) {
 
 		// Default tasks
-		// solved
 		Task x = new Task("x", 0, false, 0);
 		toDoList.add(x);
 		Task y = new Task("y", 'p', 0, false, 0);
@@ -32,7 +32,7 @@ public class controller {
 		// ==========================================
 
 		// TODO: Implement program here
-
+		boolean CONTINUE = true;
 		do {
 
 			// Update total time
@@ -47,7 +47,7 @@ public class controller {
 			if (toDoList.isEmpty()) {
 				System.out.println("There are no tasks in this List");
 			} else {
-				printToDoList(); // print taskCollection
+				printToDoList();
 			}
 
 			System.out.println("\nPlease enter command: ");
@@ -100,7 +100,10 @@ public class controller {
 			case "exit":
 				CONTINUE = false;
 				break;
-
+				
+			case "end":
+				CONTINUE = false;
+				break;
 			default:
 				System.out.println("Invalid input, please try again\n");
 			}
@@ -125,6 +128,7 @@ public class controller {
 		System.out.println("=======================");
 	}
 
+	/** Function to delete Task (is selected during function call). @return true, if task was deleted. False otherwise */
 	@SuppressWarnings("resource")
 	static boolean deleteTask() {
 		System.out.println("Please enter name of Task to delete:");

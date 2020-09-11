@@ -16,12 +16,8 @@ class Task implements I_Time {
 	boolean work_in_progress;
 	int priority;
 
-	public Task() {
-		// Empty constrctor
-	}
 
 	public Task(String name, int time, boolean wip, int priority) {
-		this();
 		this.name = this.setName(name);
 		this.module = '-';
 		this.time = time;
