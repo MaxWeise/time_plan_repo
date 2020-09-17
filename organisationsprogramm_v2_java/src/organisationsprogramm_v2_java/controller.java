@@ -3,6 +3,9 @@ package organisationsprogramm_v2_java;
 import java.util.ArrayList;
 import java.util.Scanner; // Import for user input
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 public class controller {
 
 	// Static reference used as global variables
@@ -100,7 +103,7 @@ public class controller {
 			case "exit":
 				CONTINUE = false;
 				break;
-				
+
 			case "end":
 				CONTINUE = false;
 				break;
@@ -143,6 +146,31 @@ public class controller {
 		}
 
 		return false;
+	}
+
+	/** 
+	 * Creates Task object from JSONString.
+	 * @return True, if Object was successfully added to toDoList
+	 */
+	static boolean convertJSONToTask(String JSONString) {
+		JSONParser parseJStringToJObject = new JSONParser();
+
+		try {
+			JSONObject jobj = (JSONObject) parseJStringToJObject.parse(JSONString);
+
+			String name = (String) jobj.get("Name");
+			char module = (char) jobj.get("Module");
+			int time = (int) jobj.get("Time");
+			boolean work_in_progress = (boolean) jobj.get("WIP");
+			int priority = (int) jobj.get("priority");
+
+			toDoList.add(new Task(name, module, time, work_in_progress, priority));
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 } // End of Class

@@ -1,6 +1,7 @@
 package organisationsprogramm_v2_java;
 
 import java.util.Scanner;
+import org.json.simple.*;
 
 /**
  * @author Max Weise
@@ -8,14 +9,13 @@ import java.util.Scanner;
  *         Created on 04.09.2020 Class to model all the given tasks in the
  *         program.
  */
-class Task implements I_Time {
+public class Task implements I_Time {
 
 	String name;
 	char module;
 	int time;
 	boolean work_in_progress;
 	int priority;
-
 
 	public Task(String name, int time, boolean wip, int priority) {
 		this.name = this.setName(name);
@@ -82,6 +82,26 @@ class Task implements I_Time {
 		System.out
 				.println("Time spent: " + I_Time.timeDelta(seconds) + " | Total time: " + I_Time.timeDelta(this.time));
 		return;
+	}
+
+	/**
+	 * Function to create a JSONObject from given Task Object
+	 * Uses json-simple. JOBJECT gets converted to JSONString
+	 * 
+	 * @return JSONString containing all Data of Task object.
+	 */
+	@SuppressWarnings("unchecked")
+	public String convertToJson() {
+		JSONObject jobj = new JSONObject();
+		jobj.put("Name", this.name);
+		if (this.module == '-') {
+			jobj.put("Modul", null);
+		}
+		jobj.put("Time", this.time);
+		jobj.put("WIP", this.work_in_progress);
+		jobj.put("priority", this.priority);
+
+		return jobj.toJSONString();
 	}
 
 	/**
